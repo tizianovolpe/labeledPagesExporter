@@ -1,4 +1,4 @@
-﻿/**
+/**
  *
  * @name Labelled Pages exporter
  * @desc Recognise page color labels and choose which export to pdf
@@ -68,6 +68,12 @@ function finestra(){
 		var labelList = selector.add ("listbox", undefined, pagesSelection.labels, {multiselect: true});
 		labelList.preferredSize = [200,200];
 		
+        var expPrefs = w.add('panel',undefined,ui['expPrefsPanel']);
+		expPrefs.orientation = 'row';	
+        var expTypeSelector = expPrefs.add ('dropdownlist',undefined,['PDF','JPG','PNG'])
+        expTypeSelector.preferredSize = [200,25];
+        expTypeSelector.selection = 0;
+        
 		var buttongroup = w.add('group');
 
 		var exp = buttongroup.add ("button", undefined, ui['exportButton']);
@@ -76,8 +82,19 @@ function finestra(){
 		chiudi.onClick = function(){w.close();}
 		
 		exp.onClick = function(){
-			w.close();
-			myReturn = true;
+            //alert(expTypeSelector.selection);
+            
+            if(expTypeSelector.selection == null){
+                alert('Choose the exportation format');
+            }else{
+                
+                if(labelList.selection == null){
+                    alert('Choose at least one label');
+                }else{
+                    myReturn = true;
+                    w.close();
+                }           
+            }
 		};
 		
 		w.show ();
@@ -85,12 +102,19 @@ function finestra(){
 		if (myReturn == true){
 			
 			var pagine = [];
+            var expType = expTypeSelector.selection.toString();
 			
 			for(b=0; b< labelList.selection.length; b++){
 				pagine.push(pagesSelection[labelList.selection[b]]);
 			}
 			
-			exportPDF(pagine);
+            if(expType=='PDF'){
+                exportPDF(pagine);
+            }else if(expType =='JPG'){
+                exportJPG(pagine);
+            }else if(expType == 'PNG'){
+                exportPNG(pagine);
+            }
 			
 		}
 	}	
@@ -166,6 +190,52 @@ function exportPDF(pagine){
 	
 	app.pdfExportPreferences.pageRange = "";
 	
+}
+
+
+function exportPNG(pagine){
+	
+	var theFolder = Folder.selectDialog(ui['ChooseFolder']);  
+	if (theFolder == null) {
+		exit();  
+	}
+    
+    app.pngExportPreferences.pngExportRange = PNGExportRangeEnum.EXPORT_RANGE;
+    app.pngExportPreferences.pageString =  pagine.join(",");
+    
+	var curDoc = app.documents[0]; 
+	var fileName = curDoc.name.replace(/.indd$/,"");
+	
+	try {  
+		curDoc.exportFile(ExportFormat.PNG_FORMAT , File(theFolder+'/'+fileName+'.png') , true);
+		
+	}catch(e) {  
+		alert(e);  
+	}
+	app.pngExportPreferences.pngExportRange = PNGExportRangeEnum.EXPORT_ALL;
+}
+
+
+function exportJPG(pagine){
+	
+	var theFolder = Folder.selectDialog(ui['ChooseFolder']);  
+	if (theFolder == null) {
+		exit();  
+	}
+    
+    app.jpegExportPreferences.jpegExportRange = ExportRangeOrAllPages.EXPORT_RANGE;
+    app.jpegExportPreferences.pageString =  pagine.join(",");
+    
+	var curDoc = app.documents[0]; 
+	var fileName = curDoc.name.replace(/.indd$/,"");
+	
+	try {  
+		curDoc.exportFile(ExportFormat.JPG , File(theFolder+'/'+fileName+'.jpg') , true);
+		
+	}catch(e) {  
+		alert(e);  
+	}
+	app.jpegExportPreferences.jpegExportRange = ExportRangeOrAllPages.EXPORT_ALL;
 }
 
 

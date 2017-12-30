@@ -47,15 +47,17 @@ var textContent = {
 	'ui':{
 		'it':{
 			'selectorPanel':'Scegli l\'etichetta da esportare',
-			'exportButton':'Esporta PDF',
+            'expPrefsPanel':'Formato',
+			'exportButton':'Esporta',
 			'closeButton':'Chiudi',
-			'noDocumentOpen':'Nessun documento aperto'
+			'noDocumentOpen':'Nessun documento aperto',
 		},
 		'en':{
 			'selectorPanel':'Choose the label to export',
-			'exportButton':'Export PDF',
+            'expPrefsPanel':'Format',
+			'exportButton':'Export',
 			'closeButton':'Close',
-			'noDocumentOpen':'No document open'
+			'noDocumentOpen':'No document open',
 		}		
 	}	
 }
