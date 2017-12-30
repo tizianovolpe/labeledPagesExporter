@@ -1,4 +1,4 @@
-var lang = 'it'; //for english version change this in var lang = 'en';
+var lang = 'en'; //per la versione italiana cambiare in var lang ='it';
 
 var textContent = {
 	'labelsName':{
