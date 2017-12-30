@@ -180,7 +180,6 @@ function exportPDF(pagine){
 	var pdfName = curDoc.name.replace(/.indd$/,".pdf");
 	var theFile = File(theFolder + "/" + pdfName);
 	
-	
 	try {  
 		curDoc.exportFile(ExportFormat.PDF_TYPE , theFile , true);
 		
