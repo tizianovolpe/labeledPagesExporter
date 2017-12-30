@@ -17,7 +17,7 @@
 
 
 var nome = "Labeled Pages exporter";
-var version = '0.0.5';
+var version = '0.1';
 
 
 
