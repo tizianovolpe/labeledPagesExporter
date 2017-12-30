@@ -16,20 +16,30 @@
 
 
 
-var nome = "Labelled Pages exporter";
-var version = '0.0.4';
+var nome = "Labeled Pages exporter";
+var version = '0.0.5';
 
 
 
 
-//import script language preferences 
-var scriptPath = getScriptPath().parent.fsName;
-$.evalFile(scriptPath+'/lang.js');
+//import script language preferences
+try {
+	var scriptPath = getScriptPath().parent.fsName;
+	$.evalFile(scriptPath+'/lang.js');
 
-var labelsName = textContent['labelsName'];
-var ui = textContent['ui'][lang];
+	var labelsName = textContent['labelsName'];
+	var ui = textContent['ui'][lang];
+}catch(e){
+	alert('can\'t find lang.js script');
+	exit();
+}
+
+
+
 
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.interactWithAll;
+
+
 
 main();
 
