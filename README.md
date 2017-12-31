@@ -1,9 +1,9 @@
 # README #
 
 An indesign script to export labeled pages to PDF, JPEG and PNG
-[more information @smartmix.it](https://smartmix.it/grafica-design/labeled-pages-exporter-indesign)
+[more information: smartmix.it](https://smartmix.it/grafica-design/labeled-pages-exporter-indesign)
 
-### How do I get set up? ###
+## How do I get set up? ##
 
 * [install the script](https://indesignsecrets.com/how-to-install-scripts-in-indesign.php)
 * Apply color label to pages
@@ -12,14 +12,14 @@ An indesign script to export labeled pages to PDF, JPEG and PNG
 * Select the exportation format: PDF, JPG or PNG
 * Export
 
-### Author ###
+## Author ##
 
 * **Tiziano Volpe** - *Smart Mix* - [smartmix.it](https://smartmix.it)
 
-### Translations ###
-To add end modify translations edit the [lang.js](lang.js) file
+## Translations ##
+To add or modify translations edit the [lang.js](lang.js) file
 
-change the default language
+### change the default language ###
 ```
 var lang = {
     'current-lang':'set-your-language-code'
@@ -28,7 +28,7 @@ var lang = {
 ```
 
 
-To add new translation
+### add new translation ###
 
 ```
 var lang = {
