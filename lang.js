@@ -1,5 +1,5 @@
 var lang = {
-    //the languange to use
+    //change the default language editig current-lang with the your language code
     'current-lang':'en',
     
     //add new language in translation

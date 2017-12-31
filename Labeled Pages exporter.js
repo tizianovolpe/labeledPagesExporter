@@ -8,7 +8,7 @@
  * @link https://smartmix.it
  * 
  * 
- * @see https://forums.adobe.com/thread/2173129
+ * @see https://smartmix.it/grafica-design/labeled-pages-exporter-indesign/
  
  
  */
