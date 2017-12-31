@@ -1,6 +1,6 @@
 /**
  *
- * @name Labelled Pages exporter
+ * @name Labeled Pages exporter
  * @desc Recognise page color labels and choose which export to pdf
  * @version 0.0.4
  *
