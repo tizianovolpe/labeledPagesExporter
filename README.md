@@ -19,10 +19,10 @@ An indesign script to export labeled pages to PDF, JPEG and PNG
 ## Translations ##
 To add or modify translations edit the [lang.js](lang.js) file
 
-### change the default language ###
+### change default language ###
 ```
 var lang = {
-    'current-lang':'set-your-language-code'
+    'current-lang':'your-language-code'
     ...
 }
 ```
@@ -39,7 +39,7 @@ var lang = {
         ....
     },
     'your-new-language':{
-        use the same label name and transalte in your language
+        use the english value name and translate in your language
     }
 }
 ```
