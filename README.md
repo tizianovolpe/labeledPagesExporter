@@ -1,6 +1,6 @@
 # README #
 
-An indesign script to export labeled pages to PDF, JPEG and PNG
+An indesign script to export labeled pages to PDF, JPEG or PNG
 [more information: smartmix.it](https://smartmix.it/grafica-design/labeled-pages-exporter-indesign)
 
 ## How do I get set up? ##
