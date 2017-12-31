@@ -1,6 +1,6 @@
 var lang = {
     //the languange to use
-    'current-lang':'it',
+    'current-lang':'en',
     
     //add new language in translation
     'translations':{
