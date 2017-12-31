@@ -38,7 +38,7 @@ try {
 
 
 
-//the control windows
+//the main window
 function main(){
 	 
 	if(!app.documents.length){
@@ -127,7 +127,7 @@ function main(){
 }
 
 
-//the window of settings: change language
+//the settings window: change language
 function settingsWindow(){
     
     var translationsCode = [];
@@ -326,9 +326,11 @@ function _e(stringName){
     var stringTranslate = lang.translations[currentLang][stringName];
     
     if(stringTranslate==undefined){
+        //the string not exist in language selected, switch to english
         var enTranslation = lang.translations.en[stringName];
         
         if(enTranslation==undefined){
+            // the string not exist in english, show string name
             return stringName;
         }else{
             return enTranslation;
