@@ -2,7 +2,7 @@
  *
  * @name Labeled Pages exporter
  * @desc Recognise page color labels and choose which export to pdf
- * @version 0.0.4
+ * @version 0.2
  *
  * @author Smart Mix smartmix.it
  * @link https://smartmix.it
