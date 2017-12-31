@@ -12,12 +12,8 @@ An indesign script to export labeled pages to PDF, JPEG and PNG
 * Select the exportation format: PDF, JPG or PNG
 * Export
 
-## Author ##
-
-* **Tiziano Volpe** - *Smart Mix* - [smartmix.it](https://smartmix.it)
-
 ## Translations ##
-To add or modify translations edit the [lang.js](lang.js) file
+add or modify translations editing the [lang.js](lang.js) file
 
 ### change default language ###
 ```
@@ -43,3 +39,7 @@ var lang = {
     }
 }
 ```
+
+## Author ##
+
+* **Tiziano Volpe** - *Smart Mix* - [smartmix.it](https://smartmix.it)
