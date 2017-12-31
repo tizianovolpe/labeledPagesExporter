@@ -2,7 +2,7 @@
  *
  * @name Labeled Pages exporter
  * @desc Recognise page color labels and choose which export to pdf
- * @version 0.2
+ * @version 1.1
  *
  * @author Smart Mix smartmix.it
  * @link https://smartmix.it
@@ -17,7 +17,7 @@
 
 
 var nome = "Labeled Pages exporter";
-var version = '0.2';
+var version = '1.1';
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.interactWithAll;
 
 
