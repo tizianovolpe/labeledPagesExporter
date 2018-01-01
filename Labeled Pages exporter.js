@@ -308,7 +308,7 @@ function exportJPG(pagine){
 		thisDocument.exportFile(ExportFormat.JPG , File(folder2export+'/'+fileName+'.jpg') , true);
 		
 	}catch(e) {  
-		alert('sto casso');  
+		alert(e);  
 	}
 	app.jpegExportPreferences.jpegExportRange = ExportRangeOrAllPages.EXPORT_ALL;
 }
