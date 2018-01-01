@@ -116,7 +116,7 @@ function main(){
 			}
             
             //the pages aren't ordered
-            var sortPage = pagine.join(',').split(',').sort();
+            var sortPage = pagine.join(',').split(',').sort(function(a, b){return a-b});
 			
             if(expType=='PDF'){
                 exportPDF(sortPage);
