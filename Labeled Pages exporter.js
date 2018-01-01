@@ -17,7 +17,7 @@
 
 
 var nome = "Labeled Pages exporter";
-var version = '1.1';
+var version = '1.2';
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.interactWithAll;
 
 
@@ -25,13 +25,14 @@ app.scriptPreferences.userInteractionLevel = UserInteractionLevels.interactWithA
 //import script language preferences
 try {
 	var scriptPath = getScriptPath().parent.fsName;
-	$.evalFile(scriptPath+'/lang.js');
+    var settingsFile = scriptPath+'/LabeledPagesExporter-settings.js';
+	$.evalFile(settingsFile);
     
     main();
     
 }catch(e){
-    //cant find lang.js or there is an error in file
-	alert('error in importing lang.js');
+    //cant find LabeledPagesExporter-settings.js or there is an error in file
+	alert('Error in importing settings file.\nThe LabeledPagesExporter-settings.js script must be in the same folder of main script.\n\nDownload the lastest version at bit.ly/labelExp');
 	exit();
 }
 
@@ -171,8 +172,8 @@ function settingsWindow(){
         lang["current-lang"]= translationsCode[langSelector.selection.index];
         settingsW.close();
         
-        var filePath = getScriptPath().parent.fsName+'/test.js';
-        var newSettings = editSettings(lang["current-lang"],filePath);
+        //var filePath = getScriptPath().parent.fsName+'/test.js';
+        var newSettings = editSettings(lang["current-lang"],settingsFile);
         
         
         openMain = true;
@@ -324,7 +325,7 @@ function getScriptPath() {
 }
 
 
-//translation fuction, take string name and return string translation in lang.js
+//translation fuction, take string name and return string translation in LabeledPagesExporter-settings.js
 function _e(stringName){
     
     var currentLang = lang["current-lang"];
@@ -353,35 +354,32 @@ function editSettings(lang,filePath){
     var settingsR = new File(filePath);
     settingsR.open('r');
     
-    var settingsW = new File(filePath);
-    settingsW.open('w');
-    
     var current = '';
     
     while(!settingsR.eof){
-        var line = settingsR.readln();
+        var line = settingsR.readln().toString();
         var changeLang = false;
         
-        if(line=="    'current-lang':'en',"){
-            line="    'current-lang':'"+lang+"',";
+        //search the current lang string and when found it change with preferred lang
+        var search = line.search("'current-lang'");      
+        if(search>0){
+            line="    'current-lang' : '"+lang+"',";
             changeLang = true;
         }    
         
         current += line + '\n';
     }
     
-    settingsW.write(current);
+     
+    
     
     settingsR.close();
-    settingsW.close();
-        
-    /*
-    var settingsW = new File(filePath);
-    settingsW.open(w);
-    settingsW.encoding = 'UTF-8';
-    settingsW.write(current);
-    settingsW.close();*/
     
-    return current;
+    var settingsW = new File(filePath);
+    settingsW.open('w');
+    settingsW.write(current);
+    settingsW.close();
+
+    return changeLang;
     
 }
