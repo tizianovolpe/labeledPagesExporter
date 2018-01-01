@@ -2,7 +2,7 @@
  *
  * @name Labeled Pages exporter
  * @desc Recognise page color labels and choose which export to pdf, jpeg or png
- * @version 1.2
+ * @version 1.3
  *
  * @author Smart Mix smartmix.it
  * @link https://smartmix.it
@@ -17,7 +17,7 @@
 
 
 var nome = "Labeled Pages exporter";
-var version = '1.2';
+var version = '1.3';
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.interactWithAll;
 
 
@@ -108,17 +108,22 @@ function main(){
 			
 			var pagine = [];
             var expType = expTypeSelector.selection.toString();
+            var page;
 			
 			for(b=0; b< labelList.selection.length; b++){
-				pagine.push(pagesSelection[labelList.selection[b]]);
+                page = pagesSelection[labelList.selection[b]];
+				pagine.push(page);
 			}
+            
+            //the pages aren't ordered
+            var sortPage = pagine.join(',').split(',').sort();
 			
             if(expType=='PDF'){
-                exportPDF(pagine);
+                exportPDF(sortPage);
             }else if(expType =='JPG'){
-                exportJPG(pagine);
+                exportJPG(sortPage);
             }else if(expType == 'PNG'){
-                exportPNG(pagine);
+                exportPNG(sortPage);
             }
 			
 		}
@@ -192,6 +197,7 @@ function settingsWindow(){
 
 
 //get the labels assign to the pages and return a javascript object
+
 function getPageSelectionObj(){
 	var thisDocument = app.documents[0];  
 	var pagine = thisDocument.pages;
@@ -223,9 +229,9 @@ function getPageSelectionObj(){
 		
 		if(checkLabelExist==false){
 			pagesSelection.labels.push(coolColorName);
-			pagesSelection[coolColorName]=["+" + pageNumb];
+			pagesSelection[coolColorName]=[pageNumb];
 		}else{
-			pagesSelection[coolColorName].push("+" + pageNumb);
+			pagesSelection[coolColorName].push(pageNumb);
 		}
 		checkLabelExist = false;
 	}	
