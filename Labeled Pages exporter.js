@@ -27,8 +27,8 @@ try {
 	var scriptPath = getScriptPath().parent.fsName;
     var settingsFile = scriptPath+'/LabeledPagesExporter-settings.js';
 	$.evalFile(settingsFile);
+    var importSettings = true;
     
-    main();
     
 }catch(e){
     //cant find LabeledPagesExporter-settings.js or there is an error in file
@@ -37,6 +37,9 @@ try {
 }
 
 
+if(importSettings == true){
+    main();
+}
 
 
 //the main window
@@ -190,8 +193,8 @@ function settingsWindow(){
 
 //get the labels assign to the pages and return a javascript object
 function getPageSelectionObj(){
-	var curDoc = app.documents[0];  
-	var allPages = curDoc.pages;
+	var thisDocument = app.documents[0];  
+	var pagine = thisDocument.pages;
 	
 	var pagesSelection = {};
     pagesSelection.labels = [];
@@ -199,17 +202,17 @@ function getPageSelectionObj(){
 	var checkLabelExist = false;
 	
 	
-	for(i=0; i<allPages.length; i++){
-		var curPage = allPages[i];
-		var pColor = curPage.pageColor.toString();
+	for(i=0; i<pagine.length; i++){
+		var thisPage = pagine[i];
+		var pageColor = thisPage.pageColor.toString();
 		
-		if(_e(pColor)!=undefined){
-			var coolColorName = _e(pColor);
+		if(_e(pageColor)!=undefined){
+			var coolColorName = _e(pageColor);
 		}else{
-			var coolColorName = pColor;
+			var coolColorName = pageColor;
 		}
 		
-		var pageNumb = curPage.documentOffset + 1;
+		var pageNumb = thisPage.documentOffset + 1;
 		
 		
 		for (c = 0; c< pagesSelection.labels.length; c++){
@@ -243,21 +246,21 @@ function getPageSelectionObj(){
 
 function exportPDF(pagine){
 	
-	var theFolder = Folder.selectDialog(_e('ChooseFolder'));  
-	if (theFolder == null) {
+	var folder2export = Folder.selectDialog(_e('ChooseFolder'));  
+	if (folder2export == null) {
 		exit();  
 	}
 		
 	app.pdfExportPreferences.pageRange = pagine.join(",");
-	var curDoc = app.documents[0]; 
-	var pdfName = curDoc.name.replace(/.indd$/,".pdf");
-	var theFile = File(theFolder + "/" + pdfName);
+	var thisDocument = app.documents[0]; 
+	var pdfName = thisDocument.name.replace(/.indd$/,".pdf");
+	var theFile = File(folder2export + "/" + pdfName);
 	
 	try {  
-		curDoc.exportFile(ExportFormat.PDF_TYPE , theFile , true);
+		thisDocument.exportFile(ExportFormat.PDF_TYPE , theFile , true);
 		
-	}catch(e) {  
-		alert(e);  
+	}catch(a) {  
+		alert(a);  
 	}
 	
 	app.pdfExportPreferences.pageRange = "";
@@ -267,19 +270,19 @@ function exportPDF(pagine){
 
 function exportPNG(pagine){
 	
-	var theFolder = Folder.selectDialog(_e('ChooseFolder'));  
-	if (theFolder == null) {
+	var folder2export = Folder.selectDialog(_e('ChooseFolder'));  
+	if (folder2export == null) {
 		exit();  
 	}
     
     app.pngExportPreferences.pngExportRange = PNGExportRangeEnum.EXPORT_RANGE;
     app.pngExportPreferences.pageString =  pagine.join(",");
     
-	var curDoc = app.documents[0]; 
-	var fileName = curDoc.name.replace(/.indd$/,"");
+	var thisDocument = app.documents[0]; 
+	var fileName = thisDocument.name.replace(/.indd$/,"");
 	
 	try {  
-		curDoc.exportFile(ExportFormat.PNG_FORMAT , File(theFolder+'/'+fileName+'.png') , true);
+		thisDocument.exportFile(ExportFormat.PNG_FORMAT , File(folder2export+'/'+fileName+'.png') , true);
 		
 	}catch(e) {  
 		alert(e);  
@@ -290,22 +293,22 @@ function exportPNG(pagine){
 
 function exportJPG(pagine){
 	
-	var theFolder = Folder.selectDialog(_e('ChooseFolder'));  
-	if (theFolder == null) {
+	var folder2export = Folder.selectDialog(_e('ChooseFolder'));  
+	if (folder2export == null) {
 		exit();  
 	}
     
     app.jpegExportPreferences.jpegExportRange = ExportRangeOrAllPages.EXPORT_RANGE;
     app.jpegExportPreferences.pageString =  pagine.join(",");
     
-	var curDoc = app.documents[0]; 
-	var fileName = curDoc.name.replace(/.indd$/,"");
+	var thisDocument = app.documents[0]; 
+	var fileName = thisDocument.name.replace(/.indd$/,"");
 	
 	try {  
-		curDoc.exportFile(ExportFormat.JPG , File(theFolder+'/'+fileName+'.jpg') , true);
+		thisDocument.exportFile(ExportFormat.JPG , File(folder2export+'/'+fileName+'.jpg') , true);
 		
 	}catch(e) {  
-		alert(e);  
+		alert('sto casso');  
 	}
 	app.jpegExportPreferences.jpegExportRange = ExportRangeOrAllPages.EXPORT_ALL;
 }
