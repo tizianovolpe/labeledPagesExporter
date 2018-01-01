@@ -2,7 +2,7 @@
  *
  * @name Labeled Pages exporter
  * @desc Recognise page color labels and choose which export to pdf, jpeg or png
- * @version 1.3
+ * @version 1.4
  *
  * @author Smart Mix smartmix.it
  * @link https://smartmix.it
@@ -17,7 +17,7 @@
 
 
 var nome = "Labeled Pages exporter";
-var version = '1.3';
+var version = '1.4';
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.interactWithAll;
 
 
@@ -69,6 +69,12 @@ function main(){
         expTypeSelector.preferredSize = [200,25];
         expTypeSelector.selection = 0;
         
+        var fileNamePanel = w.add('panel',undefined,_e('File name'));
+        var fileName = fileNamePanel.add('edittext',undefined,undefined);
+        fileName.preferredSize = [200,25];
+        fileName.text = app.documents[0].name.replace(/.indd$/,"");
+        
+        
 		var buttongroup = w.add('group');
 
 		var exp = buttongroup.add ("button", undefined, _e('exportButton'));
@@ -119,11 +125,11 @@ function main(){
             var sortPage = pagine.join(',').split(',').sort(function(a, b){return a-b});
 			
             if(expType=='PDF'){
-                exportPDF(sortPage);
+                exportPDF(sortPage,fileName.text);
             }else if(expType =='JPG'){
-                exportJPG(sortPage);
+                exportJPG(sortPage,fileName.text);
             }else if(expType == 'PNG'){
-                exportPNG(sortPage);
+                exportPNG(sortPage,fileName.text);
             }
 			
 		}
@@ -250,20 +256,18 @@ function getPageSelectionObj(){
 
 */
 
-function exportPDF(pagine){
+function exportPDF(pagine,fileName){
 	
 	var folder2export = Folder.selectDialog(_e('ChooseFolder'));  
 	if (folder2export == null) {
-		exit();  
+		exit();
 	}
 		
 	app.pdfExportPreferences.pageRange = pagine.join(",");
-	var thisDocument = app.documents[0]; 
-	var pdfName = thisDocument.name.replace(/.indd$/,".pdf");
-	var theFile = File(folder2export + "/" + pdfName);
-	
+	var thisDocument = app.documents[0];
+    	
 	try {  
-		thisDocument.exportFile(ExportFormat.PDF_TYPE , theFile , true);
+		thisDocument.exportFile(ExportFormat.PDF_TYPE , File(folder2export+'/'+fileName+'.pdf') , true);
 		
 	}catch(a) {  
 		alert(a);  
@@ -274,7 +278,7 @@ function exportPDF(pagine){
 }
 
 
-function exportPNG(pagine){
+function exportPNG(pagine,fileName){
 	
 	var folder2export = Folder.selectDialog(_e('ChooseFolder'));  
 	if (folder2export == null) {
@@ -285,7 +289,6 @@ function exportPNG(pagine){
     app.pngExportPreferences.pageString =  pagine.join(",");
     
 	var thisDocument = app.documents[0]; 
-	var fileName = thisDocument.name.replace(/.indd$/,"");
 	
 	try {  
 		thisDocument.exportFile(ExportFormat.PNG_FORMAT , File(folder2export+'/'+fileName+'.png') , true);
@@ -297,7 +300,7 @@ function exportPNG(pagine){
 }
 
 
-function exportJPG(pagine){
+function exportJPG(pagine,fileName){
 	
 	var folder2export = Folder.selectDialog(_e('ChooseFolder'));  
 	if (folder2export == null) {
@@ -308,7 +311,6 @@ function exportJPG(pagine){
     app.jpegExportPreferences.pageString =  pagine.join(",");
     
 	var thisDocument = app.documents[0]; 
-	var fileName = thisDocument.name.replace(/.indd$/,"");
 	
 	try {  
 		thisDocument.exportFile(ExportFormat.JPG , File(folder2export+'/'+fileName+'.jpg') , true);
