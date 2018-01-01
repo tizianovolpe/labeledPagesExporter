@@ -170,6 +170,11 @@ function settingsWindow(){
         
         lang["current-lang"]= translationsCode[langSelector.selection.index];
         settingsW.close();
+        
+        var filePath = getScriptPath().parent.fsName+'/test.js';
+        var newSettings = editSettings(lang["current-lang"],filePath);
+        
+        
         openMain = true;
     }
 
@@ -342,3 +347,41 @@ function _e(stringName){
     
 }
 
+
+function editSettings(lang,filePath){
+    
+    var settingsR = new File(filePath);
+    settingsR.open('r');
+    
+    var settingsW = new File(filePath);
+    settingsW.open('w');
+    
+    var current = '';
+    
+    while(!settingsR.eof){
+        var line = settingsR.readln();
+        var changeLang = false;
+        
+        if(line=="    'current-lang':'en',"){
+            line="    'current-lang':'"+lang+"',";
+            changeLang = true;
+        }    
+        
+        current += line + '\n';
+    }
+    
+    settingsW.write(current);
+    
+    settingsR.close();
+    settingsW.close();
+        
+    /*
+    var settingsW = new File(filePath);
+    settingsW.open(w);
+    settingsW.encoding = 'UTF-8';
+    settingsW.write(current);
+    settingsW.close();*/
+    
+    return current;
+    
+}
