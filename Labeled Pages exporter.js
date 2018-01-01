@@ -32,7 +32,7 @@ try {
     
 }catch(e){
     //cant find LabeledPagesExporter-settings.js or there is an error in file
-	alert('Error in importing settings file.\nThe LabeledPagesExporter-settings.js script must be in the same folder of main script.\n\nDownload the lastest version at bit.ly/labelExp');
+	alert('Error importing settings file.\nThe LabeledPagesExporter-settings.js script must be in the same folder of main script.\n\nDownload the lastest version at bit.ly/labelExp');
 	exit();
 }
 
@@ -378,9 +378,6 @@ function editSettings(lang,filePath){
         
         current += line + '\n';
     }
-    
-     
-    
     
     settingsR.close();
     
