@@ -13,7 +13,7 @@ An indesign script to export labeled pages to PDF, JPEG or PNG
 * Export
 
 ## Translations ##
-add or modify translations editing the [lang.js](lang.js) file
+add or modify translations editing the [LabeledPagesExporter-settings.js](LabeledPagesExporter-settings.js) file
 
 ### change default language ###
 ```
